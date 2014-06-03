@@ -21,6 +21,7 @@ alias la='ls -A'
 alias l='ls -CF'
 alias e='emacs -nw'
 alias open=xdg-open
+alias ..='cd ..'
 
 # Alias definitions.
 # You may want to put all your additions into a separate file like
