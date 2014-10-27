@@ -46,3 +46,7 @@ PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
 
 # 256 colors (for Emacs)
 export TERM=xterm-256color
+
+p7pp () {                                                                                                                                                               
+    xdg-open "http://p7pp.herokuapp.com/search/url?q=$*" ;                                                                                                              
+}
