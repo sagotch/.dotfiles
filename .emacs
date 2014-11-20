@@ -1,58 +1,39 @@
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(column-number-mode t)
- '(custom-enabled-themes (quote (tango-dark)))
- '(inhibit-startup-screen t)
- '(show-paren-mode t))
+;; el-get
+(add-to-list 'load-path "~/.emacs.d/el-get/el-get")
+(unless (require 'el-get nil 'noerror)
+  (with-current-buffer
+      (url-retrieve-synchronously
+       (concat
+	"https://raw.githubusercontent.com/dimitri/"
+	"el-get/master/el-get-install.el"))
+    (goto-char (point-max))
+    (eval-print-last-sexp)))
+(add-to-list 'el-get-recipe-path "~/.emacs.d/el-get-user/recipes")
+(el-get 'sync)
 
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
+;; package list to be installed
+(setq my:el-get-packages
+      '(tuareg-mode
+	yasnippet
+	auto-complete
+	color-theme
+	color-theme-tangotango
+        ))
+(el-get 'sync my:el-get-packages)
 
-;; Affiche le numéro de ligne et de colonne
+;; load tango color them
+(color-theme-tangotango)
+
+;; column mode
 (column-number-mode t)
-(line-number-mode t)
 
-;;parentheses matching
+;;paren mode
 (show-paren-mode 1)
 
-;;goto shortcut
-(global-set-key [(control l )] 'goto-line)
+;; allman style
+(setq c-default-style "bsd" c-basic-offset 8)
 
-(add-to-list 'load-path "/home/ju/.emacs.d")
-
-;; No tab, 4 spaces indent
-(setq-default indent-tabs-mode nil)
-(setq-default tab-width 4)
-(defvaralias 'c-basic-offset 'tab-width)
-
-;; Color theme
-;; needs to install emacs-goodies-el
-(load-file "~/.emacs.d/color-theme-tango.el")
-(color-theme-tango)
-
-;;do not indent braces
-(setq c-default-style "linux" c-basic-offset 8)
-(setq-default tab-width 8)
-
-;; webmode
-(require 'web-mode)
-(add-to-list 'auto-mode-alist '("\\.phtml$" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.tpl\\.php$" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.php$" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.[gj]sp$" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.as[cp]x$" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.erb$" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.mustache$" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.djhtml$" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.html$" . web-mode))
-
+;; auto closing tags
 (defun insert-around-region (a b) "insert a and b around current region"
   (if mark-active
       (let ()
@@ -77,15 +58,3 @@
 
 ;; save hook
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
-
-;;ocp-indent
-(add-to-list 'load-path
-  (concat
-    (replace-regexp-in-string "\n$" ""
-       (shell-command-to-string "opam config var share"))
-    "/emacs/site-lisp"))
-(require 'ocp-indent)
-
-;; tuareg
-(add-to-list 'load-path "/home/ju/.opam/system/share/tuareg")
-(load "tuareg-site-file")
