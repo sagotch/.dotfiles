@@ -1,3 +1,6 @@
+# don't put duplicate lines in the history nor lines starting with a space
+HISTCONTROL=ignoreboth
+
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
