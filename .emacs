@@ -14,7 +14,12 @@
 ;; package list to be installed
 (setq my:el-get-packages
       '(tuareg-mode
+	scala-mode2
+	plantuml-mode
 	yasnippet
+	yasnippet-config
+	yasnippet-snippets
+	yasnippets
 	auto-complete
 	color-theme
 	color-theme-tangotango
