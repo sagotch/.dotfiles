@@ -1,33 +1,15 @@
-;; el-get
+;; el-get configuration
 (add-to-list 'load-path "~/.emacs.d/el-get/el-get")
+
 (unless (require 'el-get nil 'noerror)
   (with-current-buffer
       (url-retrieve-synchronously
-       (concat
-	"https://raw.githubusercontent.com/dimitri/"
-	"el-get/master/el-get-install.el"))
+       "https://raw.githubusercontent.com/dimitri/el-get/master/el-get-install.el")
     (goto-char (point-max))
     (eval-print-last-sexp)))
+
 (add-to-list 'el-get-recipe-path "~/.emacs.d/el-get-user/recipes")
 (el-get 'sync)
-
-;; package list to be installed
-(setq my:el-get-packages
-      '(tuareg-mode
-	scala-mode2
-	plantuml-mode
-	yasnippet
-	yasnippet-config
-	yasnippet-snippets
-	yasnippets
-	auto-complete
-	color-theme
-	color-theme-tangotango
-        ))
-(el-get 'sync my:el-get-packages)
-
-;; load tango color them
-(color-theme-tangotango)
 
 ;; column mode
 (column-number-mode t)
@@ -37,6 +19,9 @@
 
 ;; allman style
 (setq c-default-style "bsd" c-basic-offset 8)
+
+;; no tab
+(setq-default indent-tabs-mode nil)
 
 ;; auto closing tags
 (defun insert-around-region (a b) "insert a and b around current region"
@@ -63,3 +48,18 @@
 
 ;; save hook
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
+
+(set-frame-parameter nil 'background-mode 'dark)
+(load-theme 'solarized t)
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(inhibit-startup-screen t))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
