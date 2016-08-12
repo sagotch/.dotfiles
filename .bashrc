@@ -50,6 +50,17 @@ PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
 # 256 colors (for Emacs)
 export TERM=xterm-256color
 
-p7pp () {                                                                                                                                                               
-    xdg-open "http://p7pp.herokuapp.com/search/url?q=$*" ;                                                                                                              
+test-eba () {
+    cd /tmp ;
+    rm -rf eba_test ;
+    mkdir eba_test ;
+    eliom-distillery -name eba_test -template eba.pgocaml ;
+    cd eba_test ;
+    chmod u+x scripts/find_pg_ctl.sh ;
+    echo "y" | scripts/find_pg_ctl.sh ;
+    make db-init ;
+    make db-start ;
+    make db-create ;
+    make db-update ;
+    make -j test.byte
 }
